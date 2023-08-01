@@ -8,7 +8,7 @@ const {
 
 // GET route for retrieving ALL the notes/tasks
 notes.get('/', (req, res) => {
-  readFromFile('../db/db.json').then((data) => res.json(JSON.parse(data)));
+  readFromFile('./db/db.json').then((data) => res.json(JSON.parse(data)));
 });
 
 // GET route for a specific note/task
@@ -43,20 +43,28 @@ notes.delete('/:note_id', (req, res) => {
 //POST route for a new note/task
 notes.post('/', (req, res) => {
   console.log(req.body);
-  const { note, description } = req.body;
-
+   // Destructuring assignment for the items in req.body
+  const { title, text } = req.body;
+ // If all the required properties are present
   if (req.body) {
+     // If all the required properties are present
     const newNote = {
-      note,
-      description,
+      title,
+      text,
       note_id: uuidv4(),
     };
 
     readAndAppend(newNote, './db/db.json');
-    res.json(`Task added, success! 🚀`);
+    const response = {
+      status: 'success',
+      body: newNote,
+    };
+    res.json(response);
   } else {
-    res.errored('Error! Ya did it wrong');
+    res.json('Error! Ya did it wrong');
   }
   });
 
   module.exports = notes;
+
+  // maybe need the feedback.js info for eventlistener
