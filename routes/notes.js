@@ -12,12 +12,12 @@ notes.get('/', (req, res) => {
 });
 
 // GET route for a specific note/task
-notes.get('/:note_id', (req, res) => {
-  const noteId = req.params.note_id;
+notes.get('/:id', (req, res) => {
+  const noteId = req.params.id;
   readFromFile('./db/db.json')
   .then((data) => JSON.parse(data))
   .then((json) => {
-    const result = json.filter((note) => note.note_id === noteId);
+    const result = json.filter((note) => note.id === noteId);
     return result.length > 0 
     ? res.json(result)
     : res.json('No notes with that ID');
@@ -26,13 +26,13 @@ notes.get('/:note_id', (req, res) => {
 
 // DELETE Route for a specific task
 // BONUS QUESTION DOUBLE JEOPARDY
-notes.delete('/:note_id', (req, res) => {
-  const noteId = req.params.note_id;
+notes.delete('/:id', (req, res) => {
+  const noteId = req.params.id;
   readFromFile('./db/db.json')
   .then((data) => JSON.parse(data))
   .then((json) => {
     // make new array of all tips except the one with the ID provided in the URL
-    const result = json.filter((note) => note.note_id !== noteId);
+    const result = json.filter((note) => note.id !== noteId);
     // save that array to the filesystem
     writeToFile('./db/db.json', result);
     // respond to the delete request
@@ -51,7 +51,7 @@ notes.post('/', (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuidv4(),
+      id: uuidv4(),
     };
 
     readAndAppend(newNote, './db/db.json');
