@@ -27,8 +27,8 @@ app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, '/public/notes.html'))
 );
 
-// app.delete('/', (req, res) => {
-//   res.send("DELETE Request Called")
+// app.delete('/notes', (req, res) => {
+//   res.send(path.join(__dirname, '/public/notes.html'))
 // });
 
 app.get('*', (req, res) =>
