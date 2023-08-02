@@ -12,7 +12,7 @@ notes.get('/', (req, res) => {
 });
 
 // GET route for a specific note/task
-notes.get('/:notes_id', (req, res) => {
+notes.get('/:note_id', (req, res) => {
   const noteId = req.params.note_id;
   readFromFile('./db/db.json')
   .then((data) => JSON.parse(data))
@@ -55,13 +55,9 @@ notes.post('/', (req, res) => {
     };
 
     readAndAppend(newNote, './db/db.json');
-    const response = {
-      status: 'success',
-      body: newNote,
-    };
-    res.json(response);
+    res.json(`Task added successfully 🚀`);
   } else {
-    res.json('Error! Ya did it wrong');
+    res.json('Error! Task failed successfully');
   }
   });
 
