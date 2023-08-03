@@ -28,7 +28,7 @@ app.get('/notes', (req, res) =>
 );
 
 // app.delete('/notes', (req, res) => {
-//   res.send(path.join(__dirname, '/public/notes.html'))
+//   res.send())
 // });
 
 app.get('*', (req, res) =>
